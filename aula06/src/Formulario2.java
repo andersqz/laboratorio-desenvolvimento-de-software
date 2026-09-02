@@ -23,6 +23,7 @@ public class Formulario2 extends javax.swing.JFrame {
     boolean tecnologia, astronomia, esportes;
     private Arquivo arquivo;
     private ArrayList<Pessoa> listaPessoas;
+    private int linhaEdicao = -1;
     public Formulario2() {
         initComponents();
         arquivo = new Arquivo("Pessoas");
@@ -67,6 +68,8 @@ public class Formulario2 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_Pessoas = new javax.swing.JTable();
+        btnExcluir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +130,20 @@ public class Formulario2 extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tbl_Pessoas);
 
+        btnExcluir.setText("Deletar");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,30 +154,38 @@ public class Formulario2 extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rdoMasculino)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rdoFeminino))
-                                    .addComponent(chk_Tecnologia)
-                                    .addComponent(cmb_Idioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28))
+                                        .addGap(46, 46, 46)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(rdoMasculino)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rdoFeminino))
+                                            .addComponent(chk_Tecnologia)
+                                            .addComponent(cmb_Idioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(28, 28, 28))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(chk_Astronomia))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(49, 49, 49)
+                                                .addComponent(txtNome)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(chk_Astronomia))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(49, 49, 49)
-                                        .addComponent(txtNome)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSalvar)
                             .addComponent(chk_Esportes))))
@@ -189,7 +214,10 @@ public class Formulario2 extends javax.swing.JFrame {
                     .addComponent(cmb_Idioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(90, 90, 90)
-                .addComponent(btnSalvar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -226,32 +254,80 @@ public class Formulario2 extends javax.swing.JFrame {
             //    ,"Alerta", JOptionPane.INFORMATION_MESSAGE);
         //Pessoa p = new Pessoa(txtNome.getText(), sexo, idioma);
         Pessoa p = new Pessoa(txtNome.getText(), sexo, (String) idioma);
-        
-        DefaultTableModel tabela = (DefaultTableModel) tbl_Pessoas.getModel();
-        tabela.addRow(p.obterDados());
-        
+        if (linhaEdicao == -1) {
+            listaPessoas.add(p);
+        }
+        else {
+            listaPessoas.set(linhaEdicao, p);
+            linhaEdicao = -1;
+        }
+        arquivo.gravaArquivo();
         carregarTabela();
+        JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+       
         txtNome.setText("");
         btnGrpSexo.clearSelection();
         chk_Tecnologia.setSelected(false);
         chk_Astronomia.setSelected(false);
         chk_Esportes.setSelected(false);
         cmb_Idioma.setSelectedIndex(0);
-        
-        listaPessoas.add(p);
-        
-        arquivo.gravaArquivo();
-        
-        System.out.println("pessoa add");
-        for (Pessoa var : listaPessoas) {
-            System.out.println(var);
-        }
-        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void chk_EsportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_EsportesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chk_EsportesActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int linha = tbl_Pessoas.getSelectedRow();
+        
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Selecione uma pessoa na tabela.", 
+                    "Atenção", 
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int resposta = JOptionPane.showConfirmDialog(
+                null, 
+                "Deseja realmente excluir esta pessoa?", 
+                "Confirmação", 
+                JOptionPane.YES_NO_OPTION);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+            listaPessoas.remove(linha);
+            arquivo.gravaArquivo();
+            
+            DefaultTableModel tabela
+                    = (DefaultTableModel) tbl_Pessoas.getModel();
+            
+           tabela.removeRow(linha);
+           
+            System.out.println("Pessoa exluída");   
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int linha = tbl_Pessoas.getSelectedRow();
+        
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma pessoa para editar.");
+            return;
+        }
+        
+        linhaEdicao = linha;
+        Pessoa p = listaPessoas.get(linha);
+        txtNome.setText(p.nome);
+        
+        if (p.sexo == 'M') {
+            rdoMasculino.setSelected(true);
+        } else {
+            rdoFeminino.setSelected(true);
+        }
+        
+        cmb_Idioma.setSelectedItem(p.idioma);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,6 +359,8 @@ public class Formulario2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.ButtonGroup btnGrpSexo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chk_Astronomia;
