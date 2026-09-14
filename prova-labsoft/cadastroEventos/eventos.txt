@@ -1,0 +1,4 @@
+anderson;fsdfsdf;fsdffsd;WorkShop;Presencial;Agendado
+dsadsada;dsadsaasd;sdadsd;Curso;Presencial;Agendado
+zorzidsasdsds;fsdfsdf;fsdffsd;Curso;Presencial;Agendado
+oi;dsadasd;dasdas;WorkShop;Presencial;Agendado
