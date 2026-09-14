@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\Projetos\\CadastroEvento\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|c:\\dev\\projetos\\cadastroevento\\cadastroevento\\telaevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|solutionrelative:cadastroevento\\telaevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|c:\\dev\\projetos\\cadastroevento\\cadastroevento\\telaevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|solutionrelative:cadastroevento\\telaevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|c:\\dev\\projetos\\cadastroevento\\cadastroevento\\arquivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|solutionrelative:cadastroevento\\arquivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|c:\\dev\\projetos\\cadastroevento\\cadastroevento\\evento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3853351-1208-4CA2-879D-E2D79B5AD3C0}|CadastroEvento\\CadastroEvento.csproj|solutionrelative:cadastroevento\\evento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TelaEvento.cs",
+              "DocumentMoniker": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\TelaEvento.cs",
+              "RelativeDocumentMoniker": "CadastroEvento\\TelaEvento.cs",
+              "ToolTip": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\TelaEvento.cs",
+              "RelativeToolTip": "CadastroEvento\\TelaEvento.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAwwIAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T16:53:37.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TelaEvento.cs [Projeto]",
+              "DocumentMoniker": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\TelaEvento.cs",
+              "RelativeDocumentMoniker": "CadastroEvento\\TelaEvento.cs",
+              "ToolTip": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\TelaEvento.cs [Projeto]",
+              "RelativeToolTip": "CadastroEvento\\TelaEvento.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T16:43:57.173Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Evento.cs",
+              "DocumentMoniker": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\Evento.cs",
+              "RelativeDocumentMoniker": "CadastroEvento\\Evento.cs",
+              "ToolTip": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\Evento.cs",
+              "RelativeToolTip": "CadastroEvento\\Evento.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T14:54:06.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Arquivo.cs",
+              "DocumentMoniker": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\Arquivo.cs",
+              "RelativeDocumentMoniker": "CadastroEvento\\Arquivo.cs",
+              "ToolTip": "C:\\dev\\Projetos\\CadastroEvento\\CadastroEvento\\Arquivo.cs",
+              "RelativeToolTip": "CadastroEvento\\Arquivo.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAswFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T14:53:29.143Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

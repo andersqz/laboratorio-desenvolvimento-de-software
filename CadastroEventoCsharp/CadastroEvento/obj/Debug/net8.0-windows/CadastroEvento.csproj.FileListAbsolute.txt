@@ -1,0 +1,16 @@
+C:\dev\Projetos\CadastroEvento\CadastroEvento\bin\Debug\net8.0-windows\CadastroEvento.exe
+C:\dev\Projetos\CadastroEvento\CadastroEvento\bin\Debug\net8.0-windows\CadastroEvento.deps.json
+C:\dev\Projetos\CadastroEvento\CadastroEvento\bin\Debug\net8.0-windows\CadastroEvento.runtimeconfig.json
+C:\dev\Projetos\CadastroEvento\CadastroEvento\bin\Debug\net8.0-windows\CadastroEvento.dll
+C:\dev\Projetos\CadastroEvento\CadastroEvento\bin\Debug\net8.0-windows\CadastroEvento.pdb
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.TelaEvento.resources
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.csproj.GenerateResource.cache
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.AssemblyInfoInputs.cache
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.AssemblyInfo.cs
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.csproj.CoreCompileInputs.cache
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.dll
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\refint\CadastroEvento.dll
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.pdb
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\CadastroEvento.genruntimeconfig.cache
+C:\dev\Projetos\CadastroEvento\CadastroEvento\obj\Debug\net8.0-windows\ref\CadastroEvento.dll
