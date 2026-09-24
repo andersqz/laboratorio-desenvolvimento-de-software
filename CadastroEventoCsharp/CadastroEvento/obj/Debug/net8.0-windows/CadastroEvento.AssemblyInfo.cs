@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CadastroEvento")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+501952e374ee268ab47253f02b3c8d707dc80980")]
 [assembly: System.Reflection.AssemblyProductAttribute("CadastroEvento")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CadastroEvento")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
