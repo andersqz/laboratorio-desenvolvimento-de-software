@@ -1,0 +1,33 @@
+
+package conexao;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class Conexao {
+    
+    private final String URL = "jdbc:mysql://localhost:3306/aula01?useTimezone=true&serverTimezone=UTC";
+    private final String USER = "root";
+    private final String SENHA = "laboratorio";
+    
+    public Connection getConexao() {
+        
+        Connection conn;
+        
+        try {
+            
+            conn = DriverManager.getConnection(URL, USER, SENHA);
+            System.out.println("Conexão realizada com sucesso!");
+            return conn;
+            
+        } catch (Exception e) {
+            System.out.println("Conexão falhou!" + e.getMessage());
+            return null;
+        }
+        
+    }
+}
