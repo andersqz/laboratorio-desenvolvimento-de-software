@@ -37,6 +37,7 @@ public class TelaPessoa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnAtualizar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +67,13 @@ public class TelaPessoa extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,7 +85,10 @@ public class TelaPessoa extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel5))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnAtualizar)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnExcluir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnAtualizar))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel4)
@@ -126,7 +137,9 @@ public class TelaPessoa extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addComponent(btnAtualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtualizar)
+                    .addComponent(btnExcluir))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -137,7 +150,7 @@ public class TelaPessoa extends javax.swing.JFrame {
         
         int idPessoa = Integer.parseInt(txtIdPessoa.getText());
         PessoaDAO pDAO = new PessoaDAO();
-        
+         
         Pessoa p = pDAO.getPessoa(idPessoa);
         
         if (p == null) {
@@ -165,6 +178,22 @@ public class TelaPessoa extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        PessoaDAO pDAO = new PessoaDAO();
+        
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja realmente excluir?",
+                "Exclusão",
+                JOptionPane.YES_NO_OPTION);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+            pDAO.excluir(Integer.parseInt(txtId.getText()));
+            limparFormulario();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -191,6 +220,7 @@ public class TelaPessoa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

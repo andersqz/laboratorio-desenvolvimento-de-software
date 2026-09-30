@@ -80,4 +80,19 @@ public class PessoaDAO {
         }
     }
     
+    
+    public void excluir(int id){
+        
+        try {
+            String query = "DELETE FROM PESSOA WHERE id = ?";
+            
+           PreparedStatement stmt = conn.prepareStatement(query);
+           stmt.setInt(1, id);
+           stmt.execute();
+           
+        } catch (SQLException e) {
+            System.out.println("Erro ao excluir pessoa: " + e.getMessage());
+        }
+    }
+    
 }
