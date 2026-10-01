@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import connection.Conexao;
 import java.util.ArrayList;
 import model.Professor;
+import java.sql.ResultSet;
+
 
 public class ProfessorDAO {
     
@@ -41,11 +43,23 @@ public class ProfessorDAO {
     
     public ArrayList<Professor> selecionarTodos() {
         
-        String query = "SELECT Nome, Cpf, Disciplina, Salario FROM Professor";
+        String query = "SELECT Id, Nome, Cpf, Disciplina, Salario FROM Professor";
         
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery()) {
             
-            
+            while (rs.next()) {
+                
+                Professor p = new Professor(
+                rs.getInt("Id"),
+                rs.getString("Nome"),
+                rs.getString("Cpf"),
+                rs.getString("Disciplina"),
+                rs.getDouble("Salario")
+                );
+                
+                professores.add(p);
+            }
             
         } catch (SQLException e) {
             System.out.println("Erro ao buscar todos professores" + e.getMessage());

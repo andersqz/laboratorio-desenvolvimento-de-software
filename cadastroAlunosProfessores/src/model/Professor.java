@@ -15,6 +15,14 @@ public class Professor {
         this.disciplina = disciplina;
         this.salario = salario;
     }
+    
+    public Professor(int id, String nome, String cpf, String disciplina, double salario) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.disciplina = disciplina;
+        this.salario = salario;
+    }
 
     public int getId() {
         return id;
@@ -61,6 +69,11 @@ public class Professor {
         return "Professor{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", disciplina=" + disciplina + ", salario=" + salario + '}';
     }
     
-    
+    public Object[] obterDados() {
+        return new Object[] {
+            id, nome, cpf, disciplina, salario
+        };
+    }
+   
     
 }

@@ -3,13 +3,29 @@ package view;
 
 import DAO.ProfessorDAO;
 import model.Professor;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaProfessor extends javax.swing.JFrame {
+    
+    private List<Professor> professores;
+    private DefaultTableModel modeloTabela;
 
     private ProfessorDAO dao;
     public TelaProfessor() {
         initComponents();
         dao = new ProfessorDAO();
+        professores = dao.selecionarTodos();
+        carregarTabela();
+    }
+    
+    public void carregarTabela() {
+        modeloTabela = (DefaultTableModel) tblProfessores.getModel();
+        
+        for (Professor p : professores) {
+            modeloTabela.addRow(p.obterDados());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -42,13 +58,10 @@ public class TelaProfessor extends javax.swing.JFrame {
 
         tblProfessores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nome", "CPF", "Disciplina", "Salário"
+                "Id", "Nome", "CPF", "Disciplina", "Salário"
             }
         ));
         jScrollPane1.setViewportView(tblProfessores);
