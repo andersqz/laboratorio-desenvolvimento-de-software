@@ -37,7 +37,7 @@ public class PessoaDAO {
     
     public Pessoa getPessoa(int id) {
         
-        String query = "SELECT * FROM PESSOA WHERE id = ?";
+        String query = "SELECT * FROM pessoa WHERE id = ?";
         
         try {
             
@@ -65,7 +65,7 @@ public class PessoaDAO {
     public void editar(Pessoa p) {
         
         try {
-            String query = "UPDATE PESSOA SET nome = ?, sexo = ?, idioma = ? WHERE id = ?";
+            String query = "UPDATE pessoa SET nome = ?, sexo = ?, idioma = ? WHERE id = ?";
             
             PreparedStatement stmt = conn.prepareStatement(query);
             
@@ -84,7 +84,7 @@ public class PessoaDAO {
     public void excluir(int id){
         
         try {
-            String query = "DELETE FROM PESSOA WHERE id = ?";
+            String query = "DELETE FROM pessoa WHERE id = ?";
             
            PreparedStatement stmt = conn.prepareStatement(query);
            stmt.setInt(1, id);

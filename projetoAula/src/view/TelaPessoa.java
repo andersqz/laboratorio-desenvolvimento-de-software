@@ -82,7 +82,7 @@ public class TelaPessoa extends javax.swing.JFrame {
         btnGrpSexo.add(rdoFeminino);
         rdoFeminino.setText("Fem");
 
-        cmbIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Português", "Inglês", "Alemão", "Francês", "Turco" }));
+        cmbIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Portugus", "Ingles", "Alemo", "Francs", "Turco" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

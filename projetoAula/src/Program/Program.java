@@ -1,4 +1,4 @@
-
+/*
 package Program;
 
 import DAO.PessoaDAO;
@@ -18,8 +18,8 @@ public class Program {
         p.setIdioma("Inglês");
         
         PessoaDAO pdao = new PessoaDAO();
-        pdao.inserir(p);
+        pdao.inserir(p);      
         
                 
     }
-}
+}*/
