@@ -11,6 +11,12 @@ public class Pessoa {
     
     public Pessoa() {}
     
+        public Pessoa(String nome, String sexo, String idioma) {
+        this.nome = nome;
+        this.sexo = sexo;
+        this.idioma = idioma;
+    }
+    
     public Pessoa(int id, String nome, String sexo, String idioma) {
         this.id = id;
         this.nome = nome;
@@ -50,6 +56,9 @@ public class Pessoa {
         this.idioma = idioma;
     }
     
+    public Object[] obterDados() {
+        return new Object[] {id, nome, sexo, idioma};
+    }
     
     
 }
