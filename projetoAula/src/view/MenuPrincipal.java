@@ -33,8 +33,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuCadastro = new javax.swing.JMenu();
         menuItemConsultaPessoa = new javax.swing.JMenuItem();
         menuItemCadastraPessoa = new javax.swing.JMenuItem();
+        menuItemEditarPessoa = new javax.swing.JMenuItem();
+        menuItemDeletarPessoa = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         menuItemRelatorioPessoas = new javax.swing.JMenuItem();
+        menuItemRelatorioPessoasFiltro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +67,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuCadastro.add(menuItemCadastraPessoa);
 
+        menuItemEditarPessoa.setText("Editar Pessoa");
+        menuItemEditarPessoa.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                menuItemEditarPessoaStateChanged(evt);
+            }
+        });
+        menuItemEditarPessoa.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                menuItemEditarPessoaCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        menuItemEditarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEditarPessoaActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuItemEditarPessoa);
+
+        menuItemDeletarPessoa.setText("Deletar Pessoa");
+        menuItemDeletarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDeletarPessoaActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuItemDeletarPessoa);
+
         jMenuBar1.add(menuCadastro);
 
         menuRelatorio.setText("Relatórios");
@@ -80,6 +111,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuRelatorio.add(menuItemRelatorioPessoas);
+
+        menuItemRelatorioPessoasFiltro.setText("Relatório Pessoas Filtro");
+        menuItemRelatorioPessoasFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRelatorioPessoasFiltroActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(menuItemRelatorioPessoasFiltro);
 
         jMenuBar1.add(menuRelatorio);
 
@@ -109,7 +148,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuRelatorioActionPerformed
 
     private void menuItemConsultaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultaPessoaActionPerformed
-        TelaPessoa telaPessoa = new TelaPessoa();
+        ConsultaPessoa telaPessoa = new ConsultaPessoa();
         telaPessoa.setVisible(true);
     }//GEN-LAST:event_menuItemConsultaPessoaActionPerformed
 
@@ -122,6 +161,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CadastraPessoa cadPessoa = new CadastraPessoa();
         cadPessoa.setVisible(true);
     }//GEN-LAST:event_menuItemCadastraPessoaActionPerformed
+
+    private void menuItemEditarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarPessoaActionPerformed
+        EditaPessoa editPessoa = new EditaPessoa();
+        editPessoa.setVisible(true);
+    }//GEN-LAST:event_menuItemEditarPessoaActionPerformed
+
+    private void menuItemEditarPessoaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_menuItemEditarPessoaStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemEditarPessoaStateChanged
+
+    private void menuItemEditarPessoaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_menuItemEditarPessoaCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemEditarPessoaCaretPositionChanged
+
+    private void menuItemDeletarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeletarPessoaActionPerformed
+        DeletaPessoa delPessoa = new DeletaPessoa();
+        delPessoa.setVisible(true);
+    }//GEN-LAST:event_menuItemDeletarPessoaActionPerformed
+
+    private void menuItemRelatorioPessoasFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRelatorioPessoasFiltroActionPerformed
+        RelatorioPessoasComFiltro relFiltro = new RelatorioPessoasComFiltro();
+        relFiltro.setVisible(true);
+    }//GEN-LAST:event_menuItemRelatorioPessoasFiltroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +216,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuItemCadastraPessoa;
     private javax.swing.JMenuItem menuItemConsultaPessoa;
+    private javax.swing.JMenuItem menuItemDeletarPessoa;
+    private javax.swing.JMenuItem menuItemEditarPessoa;
     private javax.swing.JMenuItem menuItemRelatorioPessoas;
+    private javax.swing.JMenuItem menuItemRelatorioPessoasFiltro;
     private javax.swing.JMenu menuRelatorio;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,12 +5,12 @@ import DAO.PessoaDAO;
 import beans.Pessoa;
 import javax.swing.JOptionPane;
 
-public class TelaPessoa extends javax.swing.JFrame {
+public class ConsultaPessoa extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaPessoa.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultaPessoa.class.getName());
 
     
-    public TelaPessoa() {
+    public ConsultaPessoa() {
         initComponents();
     }
     
@@ -187,32 +187,32 @@ public class TelaPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        
+
         String sexo = null;
         if (rdoMasculino.isSelected())
-            sexo = "M";
+        sexo = "M";
         else if (rdoFeminino.isSelected())
-            sexo = "F";
-        
-       Pessoa p = new Pessoa(
-               Integer.parseInt(txtId.getText()), txtNome.getText(), sexo, cmbIdioma.getSelectedItem().toString());
-       
-       PessoaDAO pDAO = new PessoaDAO();
-       pDAO.editar(p);
-       limparFormulario();
-       
+        sexo = "F";
+
+        Pessoa p = new Pessoa(
+            Integer.parseInt(txtId.getText()), txtNome.getText(), sexo, cmbIdioma.getSelectedItem().toString());
+
+        PessoaDAO pDAO = new PessoaDAO();
+        pDAO.editar(p);
+        limparFormulario();
+
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
         PessoaDAO pDAO = new PessoaDAO();
-        
+
         int resposta = JOptionPane.showConfirmDialog(
-                this,
-                "Deseja realmente excluir?",
-                "Exclusão",
-                JOptionPane.YES_NO_OPTION);
-        
+            this,
+            "Deseja realmente excluir?",
+            "Exclusão",
+            JOptionPane.YES_NO_OPTION);
+
         if (resposta == JOptionPane.YES_OPTION) {
             pDAO.excluir(Integer.parseInt(txtId.getText()));
             limparFormulario();
@@ -239,7 +239,7 @@ public class TelaPessoa extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaPessoa().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ConsultaPessoa().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
