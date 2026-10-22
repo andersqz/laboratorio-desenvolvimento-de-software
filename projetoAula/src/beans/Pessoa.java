@@ -61,4 +61,34 @@ public class Pessoa {
     }
     
     
+    @Override
+    public String toString() {
+        return this.id + " - " + this.nome;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        return this.id == other.id;
+    }
+    
+    
+    
+    
 }
