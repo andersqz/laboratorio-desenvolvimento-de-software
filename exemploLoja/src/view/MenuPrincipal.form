@@ -33,6 +33,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cadastrar Categoria"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCadastraCategoriaActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -55,6 +58,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar Categoria"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemConsultaCategoriaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -1,6 +1,16 @@
 package view;
 
+import DAO.CategoriaDAO;
+import DAO.ProdutoDAO;
+import beans.Categoria;
+import beans.Produto;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 public class EditaProduto extends javax.swing.JFrame {
+    
+    Produto produto = new Produto();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditaProduto.class.getName());
 
@@ -8,7 +18,42 @@ public class EditaProduto extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void carregarDadosProduto() {
+    public EditaProduto(Produto produto) {
+        initComponents();
+        this.produto = produto;
+        preencheComboCategorias();
+        carregaDadosProduto();
+    }
+    
+    public void preencheComboCategorias() {
+        CategoriaDAO cDAO = new CategoriaDAO();
+        List<Categoria> categorias = cDAO.getAll();
+        
+        for (Categoria c : categorias) {
+            cmbCategoria.addItem(c);
+        }
+    }
+    
+    public void carregaDadosProduto() {
+        
+        txtId.setText(produto.getId() + "");
+        txtNome.setText(produto.getNome());
+        txtPreco.setText(produto.getPreco() + "");
+        txtQuantidade.setText(produto.getQuantidade() + "");
+        
+        cmbCategoria.setSelectedItem(produto.getIdCategoria());
+        
+        if (produto.getIsActive() == false) {
+            chkForaDeLinha.setSelected(true);
+        } else {
+            chkForaDeLinha.setSelected(false);
+        }
+        
+        
+        DateTimeFormatter formato = 
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        txtDataCadastro.setText(produto.getCreatedAt().format(formato) + "");
         
     }
 
@@ -24,12 +69,13 @@ public class EditaProduto extends javax.swing.JFrame {
         txtQuantidade = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         chkForaDeLinha = new javax.swing.JCheckBox();
         txtDataCadastro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -41,7 +87,8 @@ public class EditaProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Categoria");
 
-        jButton1.setText("Salvar");
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
 
         chkForaDeLinha.setText("Fora de linha?");
 
@@ -52,6 +99,9 @@ public class EditaProduto extends javax.swing.JFrame {
         jLabel6.setText("Código");
 
         txtId.setEditable(false);
+
+        jButton1.setText("Fechar");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,8 +123,10 @@ public class EditaProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 367, Short.MAX_VALUE)
                         .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalvar)
                         .addGap(99, 99, 99))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,14 +166,57 @@ public class EditaProduto extends javax.swing.JFrame {
                 .addComponent(chkForaDeLinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnSalvar)
                     .addComponent(txtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jButton1))
                 .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        try {
+            
+            String nome = txtNome.getText();
+            double preco = Double.parseDouble(txtPreco.getText());
+            int quantidade = Integer.parseInt(txtQuantidade.getText());
+            Categoria categoria = (Categoria) cmbCategoria.getSelectedItem();
+            boolean ativo = true;
+
+            if (chkForaDeLinha.isSelected()) {
+                ativo = false;
+            }
+            
+            if (nome.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nome não pode ser vazio");
+                return;
+            }
+
+            produto.setNome(nome);
+            produto.setPreco(preco);
+            produto.setQuantidade(quantidade);
+            produto.setIdCategoria(categoria);
+            produto.setIsActive(ativo);
+
+            ProdutoDAO pDAO = new ProdutoDAO();
+            pDAO.editar(produto);
+
+            JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
+            dispose();
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Campos numéricos devem conter apenas números!");
+            return;
+        }
+        
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     public static void main(String args[]) {
@@ -130,6 +225,7 @@ public class EditaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox chkForaDeLinha;
     private javax.swing.JComboBox cmbCategoria;
     private javax.swing.JButton jButton1;

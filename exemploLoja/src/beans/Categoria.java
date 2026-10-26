@@ -49,4 +49,22 @@ public class Categoria {
     public String toString() {
         return this.nome;
     }
+    
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+        return id == ((Categoria) o).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+    
+    
+    public Object[] obterDados() {
+        return new Object[] {id, nome, descricao};
+    }
 }

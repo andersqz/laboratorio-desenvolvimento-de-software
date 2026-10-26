@@ -2,6 +2,7 @@
 package beans;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Produto {
@@ -91,10 +92,12 @@ public class Produto {
         this.CreatedAt = CreatedAt;
     }
     
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    
     public Object[] obterDados() {
         return new Object[] {
             id, nome, preco, quantidade,
-            idCategoria, isActive, CreatedAt
+            idCategoria, isActive, CreatedAt.format(formato)
         };
     }
     
