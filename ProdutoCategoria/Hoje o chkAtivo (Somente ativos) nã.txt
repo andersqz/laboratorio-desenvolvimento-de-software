@@ -1,0 +1,257 @@
+Hoje o chkAtivo ("Somente ativos") não faz nada: não tem listener e o DAO nem recebe esse parâmetro. Para filtrar por Todos / Ativos / Inativos o ideal é trocar o checkbox por um combo (o checkbox só tem 2 estados). Segue o que mudar.
+1. No DAO: novo parâmetro Boolean ativo
+O truque é usar Boolean (objeto) em vez de boolean, porque ele aceita três valores:
+- null → todos
+- true → somente ativos
+- false → somente inativos
+Em ProdutoDAO:
+public List<Produto> getProdutoComFiltro(String nome, Boolean ativo) {
+
+    StringBuilder sql = new StringBuilder("SELECT * FROM Produto WHERE Nome LIKE ?");
+
+    if (ativo != null) {
+        sql.append(" AND Ativo = ?");
+    }
+
+    try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+        stmt.setString(1, "%" + nome + "%");
+
+        if (ativo != null) {
+            stmt.setBoolean(2, ativo);
+        }
+
+        try (ResultSet rs = stmt.executeQuery()) {
+
+            List<Produto> produtos = new ArrayList<>();
+            CategoriaDAO cDAO = new CategoriaDAO();   // fora do while!
+
+            while (rs.next()) {
+                Produto p = new Produto();
+
+                p.setId(rs.getInt("ProdutoID"));
+                p.setNome(rs.getString("Nome"));
+                p.setPreco(rs.getDouble("Preco"));
+                p.setQuantidade(rs.getInt("Quantidade"));
+
+                Categoria c = cDAO.getById(rs.getInt("CategoriaID"));
+                p.setCategoriaID(c);
+
+                p.setAtivo(rs.getBoolean("Ativo"));
+
+                Timestamp ts = rs.getTimestamp("CriadoEm");
+                p.setCriadoEm(ts != null ? ts.toLocalDateTime().toLocalDate() : null);
+
+                produtos.add(p);
+            }
+
+            return produtos;
+
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao listar produtos: " + e.getMessage());
+        return new ArrayList<>();   // melhor que null
+    }
+}
+
+// mantém o código antigo funcionando
+public List<Produto> getProdutoComFiltro(String nome) {
+    return getProdutoComFiltro(nome, null);
+}
+Observações importantes:
+- Ativo no MySQL é TINYINT(1)/BOOLEAN, então stmt.setBoolean(2, ativo) funciona direto.
+- Aproveitei para tirar o new CategoriaDAO() de dentro do while. Antes era uma conexão nova por linha retornada; agora é uma por consulta.
+- Retornar new ArrayList<>() no catch evita o NullPointerException no for da tela.
+- O Timestamp já está coberto pelo import java.sql.*;.
+2. Na tela: trocar o checkbox por um combo
+No editor do form ConsultaProduto.form:
+1. Apague o chkAtivo.
+2. Adicione um JComboBox com o nome cmbFiltroAtivo.
+3. Em Properties → model, coloque uma opção por linha:
+Todos
+Ativos
+Inativos
+4. Dê um duplo clique no combo para criar o evento actionPerformed.
+No ConsultaProduto.java:
+public void preencheTabela() {
+    ProdutoDAO pDAO = new ProdutoDAO();
+
+    List<Produto> produtos = pDAO.getProdutoComFiltro(txtNome.getText(), filtroAtivoSelecionado());
+
+    DefaultTableModel modeloTabela = (DefaultTableModel) tblProdutos.getModel();
+    modeloTabela.setRowCount(0);
+
+    for (Produto p : produtos) {
+        modeloTabela.addRow(p.obterDados());
+    }
+}
+
+private Boolean filtroAtivoSelecionado() {
+    switch (cmbFiltroAtivo.getSelectedIndex()) {
+        case 1:  return Boolean.TRUE;    // Ativos
+        case 2:  return Boolean.FALSE;   // Inativos
+        default: return null;            // Todos
+    }
+}
+E o listener gerado pelo NetBeans:
+private void cmbFiltroAtivoActionPerformed(java.awt.event.ActionEvent evt) {
+    preencheTabela();
+}
+Assim, ao trocar o combo (ou digitar no nome), a tabela atualiza com WHERE Ativo = ?.
+3. Se preferir manter o checkbox (só ativos)
+Aí o DAO pode continuar com a assinatura de 2 parâmetros, mas passando null ou true:
+Boolean filtro = chkAtivo.isSelected() ? Boolean.TRUE : null;
+List<Produto> produtos = pDAO.getProdutoComFiltro(txtNome.getText(), filtro);
+E adicionar listener no checkbox:
+chkAtivo.addActionListener(e -> preencheTabela());
+Só que com um checkbox você não consegue ver somente os inativos — por isso o combo é a opção mais completa.
+4. Ajustes que valem a pena junto
+- Os botões Refresh e Fechar do ConsultaProduto ainda não têm listener (só o Editar tem). No form, dê duplo clique neles para gerar:
+private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {
+    preencheTabela();
+}
+
+private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {
+    dispose();
+}
+- Mostrar "Ativo"/"Inativo" em vez de true/false na coluna. Duas opções:
+- trocar no Produto.obterDados():
+return new Object[] { id, categoriaID, nome, preco, quantidade,
+                      ativo ? "Ativo" : "Inativo", criadoEm };
+- ou usar um DefaultTableCellRenderer só para a coluna 5 (mais elegante, mas mais código).
+- setDefaultCloseOperation(EXIT_ON_CLOSE) no ConsultaProduto fecha o app inteiro; use DISPOSE_ON_CLOSE como nas outras telas.
+- getAll() e getProdutoComFiltro() ainda retornam null no catch — troque por new ArrayList<>() para não quebrar o for da tela.
+Resumindo a alteração no DAO: acrescentar o parâmetro Boolean ativo, montar o AND Ativo = ? dinamicamente e fazer o bind só quando ele não for null. O resto é só ligar o combo da tela a esse parâmetro.
+Plan · Big Pickle · 54.0s · 106.6 tok/s
+nao da pra manter o checkbox? quero manter, como fazer dai
++Thought · 24.3s
+Dá para manter o checkbox, sim — só tem uma limitação: um checkbox só tem dois estados. Então ele consegue representar:
+- desmarcado → Todos
+- marcado → Somente ativos
+Ele não consegue distinguir "somente inativos". Se para você "Todos ↔ Somente ativos" já resolve, é só o que segue abaixo. Se precisar dos 3 estados, veja a opção com dois checkboxes no final.
+Opção A — manter um único chkAtivo (Todos ↔ Somente ativos)
+No DAO
+Mantenha o método com o parâmetro Boolean (ele aceita null = todos e true = ativos):
+public List<Produto> getProdutoComFiltro(String nome, Boolean ativo) {
+
+    StringBuilder sql = new StringBuilder("SELECT * FROM Produto WHERE Nome LIKE ?");
+
+    if (ativo != null) {
+        sql.append(" AND Ativo = ?");
+    }
+
+    try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+        stmt.setString(1, "%" + nome + "%");
+
+        if (ativo != null) {
+            stmt.setBoolean(2, ativo);
+        }
+
+        try (ResultSet rs = stmt.executeQuery()) {
+
+            List<Produto> produtos = new ArrayList<>();
+            CategoriaDAO cDAO = new CategoriaDAO();
+
+            while (rs.next()) {
+                Produto p = new Produto();
+
+                p.setId(rs.getInt("ProdutoID"));
+                p.setNome(rs.getString("Nome"));
+                p.setPreco(rs.getDouble("Preco"));
+                p.setQuantidade(rs.getInt("Quantidade"));
+
+                Categoria c = cDAO.getById(rs.getInt("CategoriaID"));
+                p.setCategoriaID(c);
+
+                p.setAtivo(rs.getBoolean("Ativo"));
+
+                Timestamp ts = rs.getTimestamp("CriadoEm");
+                p.setCriadoEm(ts != null ? ts.toLocalDateTime().toLocalDate() : null);
+
+                produtos.add(p);
+            }
+
+            return produtos;
+
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao listar produtos: " + e.getMessage());
+        return new ArrayList<>();
+    }
+}
+
+// mantém a chamada antiga funcionando
+public List<Produto> getProdutoComFiltro(String nome) {
+    return getProdutoComFiltro(nome, null);
+}
+Na tela
+Em ConsultaProduto.preencheTabela():
+List<Produto> produtos = pDAO.getProdutoComFiltro(
+    txtNome.getText(),
+    chkAtivo.isSelected() ? Boolean.TRUE : null   // marcado = só ativos; desmarcado = todos
+);
+Listener do checkbox
+No editor do form, dê duplo clique no chkAtivo para gerar o evento:
+private void chkAtivoActionPerformed(java.awt.event.ActionEvent evt) {
+    preencheTabela();
+}
+Pronto: marcar/desmarcar o checkbox recarrega a tabela com/sem o AND Ativo = ?.
+Se quiser deixar o label mais claro, troque "Somente ativos" por "Mostrar somente ativos".
+Opção B — manter checkboxes e ainda ter os 3 estados
+Se você precisa ver somente inativos, use dois checkboxes mutuamente exclusivos:
+- chkAtivos — "Ativos"
+- chkInativos — "Inativos"
+Nenhum marcado (ou ambos) → todos.
+No form, adicione os dois e dê duplo clique em cada um. Depois:
+private Boolean filtroAtivoSelecionado() {
+    boolean ativos   = chkAtivos.isSelected();
+    boolean inativos = chkInativos.isSelected();
+
+    if (ativos && !inativos)  return Boolean.TRUE;    // só ativos
+    if (!ativos && inativos)  return Boolean.FALSE;   // só inativos
+    return null;                                      // todos
+}
+
+public void preencheTabela() {
+    ProdutoDAO pDAO = new ProdutoDAO();
+
+    List<Produto> produtos = pDAO.getProdutoComFiltro(
+        txtNome.getText(),
+        filtroAtivoSelecionado()
+    );
+
+    DefaultTableModel modeloTabela = (DefaultTableModel) tblProdutos.getModel();
+    modeloTabela.setRowCount(0);
+
+    for (Produto p : produtos) {
+        modeloTabela.addRow(p.obterDados());
+    }
+}
+
+private void chkAtivosActionPerformed(java.awt.event.ActionEvent evt) {
+    if (chkAtivos.isSelected()) {
+        chkInativos.setSelected(false);   // não dispara ActionEvent, então não entra em loop
+    }
+    preencheTabela();
+}
+
+private void chkInativosActionPerformed(java.awt.event.ActionEvent evt) {
+    if (chkInativos.isSelected()) {
+        chkAtivos.setSelected(false);
+    }
+    preencheTabela();
+}
+Detalhe importante: use ActionListener (o evento actionPerformed) e não ItemListener. O setSelected(false) programático dispara ItemEvent, mas não dispara ActionEvent — assim você não cria recursão entre os dois checkboxes.
+Resumo do que muda no DAO
+Independente da opção, a mudança no DAO é só esta:
+1. Receber Boolean ativo (em vez de boolean, para caber o "todos").
+2. Montar o SQL dinamicamente:
+StringBuilder sql = new StringBuilder("SELECT * FROM Produto WHERE Nome LIKE ?");
+if (ativo != null) {
+    sql.append(" AND Ativo = ?");
+}
+3. Fazer o bind do segundo parâmetro só quando ativo != null.
+Com um checkbox: null/true. Com dois checkboxes: null/true/false. A Opção A é a menor mudança possível e mantém exatamente o seu chkAtivo atual.
