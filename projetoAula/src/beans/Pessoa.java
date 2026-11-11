@@ -1,8 +1,10 @@
 
 package beans;
 
+import java.io.Serializable;
 
-public class Pessoa {
+
+public class Pessoa implements Serializable {
     
     private int id;
     private String nome;
